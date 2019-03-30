@@ -41,22 +41,12 @@ class PagesController extends Controller
 
     protected function getUrl($url)
     {
-        $test = Url::where('url',$url)->first();
-  
-        if($test)
-        {
-            return $test;
-        }
-       
-       return Url::create([
-                    'url'=>$url,
-                    'shoten'=>Url::get_unique_short_url(),
-        ]);
-    
-            
                
-        
-
+        return Url::firstOrCreate(
+            ['url'=>$url],
+            ['shoten'=>Url::get_unique_short_url(),]
+       );
+    
     }
 
 }
